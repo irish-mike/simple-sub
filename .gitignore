@@ -1,9 +1,18 @@
+# General Files
+*~
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
+*.log
+*.trace
+
 # Prerequisites
 *.d
 
-# Compiled Object files
-*.slo
-*.lo
+# Compiled Object Files
 *.o
 *.obj
 
@@ -11,18 +20,12 @@
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
+# Compiled Dynamic Libraries
 *.so
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+# Compiled Static Libraries
 *.a
 *.lib
 
@@ -30,3 +33,54 @@
 *.exe
 *.out
 *.app
+
+# JUCE Specific
+*.jucer
+Builds/
+JuceLibraryCode/
+*.zip
+*.tar.gz
+*.dmg
+
+# macOS Specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+__MACOSX/
+*.icloud
+*.localized
+.Trashes
+*.plist
+
+# Windows Specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Visual Studio Specific
+.vs/
+*.vcxproj*
+*.pdb
+*.idb
+*.ipch
+*.suo
+*.sdf
+*.tlog
+*.opensdf
+*.VC.opendb
+*.VC.db
+
+# JetBrains IDEs (CLion, IntelliJ IDEA, etc.)
+.idea/
+*.iml
+cmake-build-*
+
+# CMake Specific
+CMakeCache.txt
+CMakeFiles/
+Testing/
+Makefile
+cmake_install.cmake
