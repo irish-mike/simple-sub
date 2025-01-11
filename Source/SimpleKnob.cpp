@@ -1,35 +1,35 @@
 #include "SimpleKnob.hpp"
 #include "Constants.h" 
 
-SimpleKnob::SimpleKnob(const juce::String& name, double minValue, double maxValue)
+SimpleKnob::SimpleKnob(const juce::String& name, double minValue, double maxValue, double defaultValue)
 {
+    this->setRotarySlider(minValue, maxValue, defaultValue);
+    this->setLabel(name);
+}
 
-    // Set the size
-    const int totalWidth = Constants::rotarySliderSize + 2 * Constants::knobPadding;
+void SimpleKnob::setRotarySlider(double minValue, double maxValue, double defaultValue)
+{
+    knobSlider.setRange(minValue, maxValue);
+    knobSlider.setValue(defaultValue);
+    knobSlider.setNumDecimalPlacesToDisplay(2);
 
-    const int totalHeight = Constants::knobPadding
-        + Constants::labelHeight
-        + Constants::knobPadding
-        + Constants::rotarySliderSize
-        + Constants::knobPadding;
+    knobSlider.setSliderStyle(juce::Slider::Rotary);
+    knobSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
 
-    // 10 + 20 + 10 + 125 + 10
+    knobSlider.setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::darkgreen);  
+    knobSlider.setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::darkgrey);  
+    knobSlider.setColour(juce::Slider::thumbColourId, juce::Colours::whitesmoke);
 
-    setSize(totalWidth, totalHeight);
+    addAndMakeVisible(knobSlider);
+}
 
-    // Configure the label
+void SimpleKnob::setLabel(const juce::String& name) 
+{
     knobLabel.setText(name, juce::dontSendNotification);
     knobLabel.setJustificationType(juce::Justification::centred);
-    addAndMakeVisible(knobLabel);
-
-    // Configure the slider
-    knobSlider.setRange(minValue, maxValue);
-    knobSlider.setValue(0.0); // Always start at 0
-    knobSlider.setSliderStyle(juce::Slider::Rotary);
-    
-    // Text box below the rotary knob
     knobSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
-    addAndMakeVisible(knobSlider);
+
+    addAndMakeVisible(knobLabel);
 }
 
 void SimpleKnob::resized()

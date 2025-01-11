@@ -15,6 +15,4 @@ namespace Constants {
     // Label settings
     inline constexpr int labelHeight = 20;
     inline constexpr int knobPadding = 10;
-
-    
 }

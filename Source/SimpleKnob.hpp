@@ -17,7 +17,12 @@ public:
      * @param minValue  The slider's minimum value.
      * @param maxValue  The slider's maximum value.
      */
-    SimpleKnob(const juce::String& name, double minValue, double maxValue);
+    SimpleKnob(const juce::String& name, double minValue, double maxValue, double defaultValue);
+
+
+    void setRotarySlider(double minValue, double maxValue, double defaultValue);
+
+    void setLabel(const juce::String& name);
 
     ~SimpleKnob() override = default;
 

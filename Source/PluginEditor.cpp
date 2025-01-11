@@ -44,4 +44,3 @@ void SimpleSubAudioProcessorEditor::resizeWithAspect()
     // Call base class setSize with the calculated dimensions
     Component::setSize(width, height);
 }
-
