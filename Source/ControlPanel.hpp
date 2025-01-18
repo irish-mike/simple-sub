@@ -2,12 +2,16 @@
 #include <JuceHeader.h>
 #include "SimpleKnob.hpp"
 #include "SimpleFader.hpp"
+#include "PluginProcessor.h"
 
 class ControlPanel : public juce::Component
 {
 public:
-    ControlPanel();
+    ControlPanel(SimpleSubAudioProcessor& processor);
+   
     ~ControlPanel() override = default;
+
+    void registerListeners();
 
     void paint(juce::Graphics& g) override;
     void resized() override;
@@ -23,6 +27,7 @@ private:
     SimpleKnob attackSlider{ "Attack", 0.001, 10.0, 0.1 };    // Attack time: 1 ms to 10 s. Default: 100 ms.
     SimpleKnob releaseSlider{ "Release", 0.001, 10.0, 0.5 };  // Release time: 1 ms to 10 s. Default: 500 ms.
 
+    SimpleSubAudioProcessor& processor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ControlPanel)
 };

@@ -1,35 +1,26 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "SimpleSlider.hpp"
 
-class SimpleFader : public juce::Component
+class SimpleFader : public SimpleSlider
 {
 public:
-    /**
-     * Creates a SimpleFader with the given label text, minimum and maximum slider range.
-     * The slider is always initialized to 0.
-     *
-     * @param name      The label text displayed below the fader.
-     * @param minValue  The slider's minimum value.
-     * @param maxValue  The slider's maximum value.
-     */
-    SimpleFader(const juce::String& name, double minValue, double maxValue, double defaultValue);
+    SimpleFader(const juce::String& name, double minValue, double maxValue, double defaultValue)
+        : SimpleSlider(name, minValue, maxValue, defaultValue)
+    {
+        setSliderStyle();
+    }
 
-    ~SimpleFader() override = default;
+    void setSliderStyle() override
+    {
+        slider.setSliderStyle(juce::Slider::LinearVertical);
+        slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+        slider.setColour(juce::Slider::trackColourId, juce::Colours::deepskyblue);
+        slider.setColour(juce::Slider::thumbColourId, juce::Colours::white);
 
-    void setFader(double minValue, double maxValue, double defaultValue);
-
-    void setLabel(const juce::String& name);
-
-    /**
-     * Resized is called whenever the component’s size changes.
-     * We’ll handle the layout of our label and slider here.
-     */
-    void resized() override;
-
-private:
-    juce::Slider faderSlider;
-    juce::Label faderLabel;
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SimpleFader)
+        label.setJustificationType(juce::Justification::centred);
+        label.setFont(juce::Font(14.0f, juce::Font::bold));
+        label.setColour(juce::Label::textColourId, juce::Colours::white);
+    }
 };

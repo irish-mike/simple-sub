@@ -2,8 +2,11 @@
 #include "Constants.h"
 using namespace juce;
 
-ControlPanel::ControlPanel()
+using ProcessorSetter = void (SimpleSubAudioProcessor::*)(double);
+
+ControlPanel::ControlPanel(SimpleSubAudioProcessor& processor) : processor(processor)
 {
+    this->registerListeners();
     addAndMakeVisible(gainSlider);
     addAndMakeVisible(lpFilterSlider);
     addAndMakeVisible(distortSlider);
@@ -12,6 +15,23 @@ ControlPanel::ControlPanel()
     addAndMakeVisible(releaseSlider);
 }
 
+void ControlPanel::registerListeners()
+{
+    auto connectSlider = [this](SimpleSlider& slider, ProcessorSetter setter)
+        {
+            slider.onValueChanged = [processor = &this->processor, setter](double newValue)
+                {
+                    (processor->*setter)(newValue);
+                };
+        };
+
+    connectSlider(gainSlider, &SimpleSubAudioProcessor::setGain);
+    connectSlider(lpFilterSlider, &SimpleSubAudioProcessor::setFilterFrequency);
+    connectSlider(distortSlider, &SimpleSubAudioProcessor::setDistortionAmount);
+    connectSlider(morphSlider, &SimpleSubAudioProcessor::setMorphAmount);
+    connectSlider(attackSlider, &SimpleSubAudioProcessor::setAttackTime);
+    connectSlider(releaseSlider, &SimpleSubAudioProcessor::setReleaseTime);
+}
 void ControlPanel::paint(juce::Graphics& g)
 {
     // Create a gradient for the background

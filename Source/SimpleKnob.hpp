@@ -1,43 +1,33 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "SimpleSlider.hpp"
+
 
 /**
  * A simple knob component that places a label at the top,
  * and a rotary slider (with a text box below) below the label.
  */
-class SimpleKnob : public juce::Component
+class SimpleKnob : public SimpleSlider
 {
 public:
-    /**
-     * Creates a SimpleKnob with the given label text, minimum and maximum slider range.
-     * The slider is always initialized to 0.
-     *
-     * @param name      The label text displayed above the knob.
-     * @param minValue  The slider's minimum value.
-     * @param maxValue  The slider's maximum value.
-     */
-    SimpleKnob(const juce::String& name, double minValue, double maxValue, double defaultValue);
 
+    SimpleKnob(const juce::String& name, double minValue, double maxValue, double defaultValue)
+        : SimpleSlider(name, minValue, maxValue, defaultValue)
+    {
+        setSliderStyle();
+    }
 
-    void setRotarySlider(double minValue, double maxValue, double defaultValue);
+    void setSliderStyle() override
+    {
+        slider.setSliderStyle(juce::Slider::Rotary);
+        slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
 
-    void setLabel(const juce::String& name);
+        slider.setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::darkgreen);
+        slider.setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::darkgrey);
+        slider.setColour(juce::Slider::thumbColourId, juce::Colours::whitesmoke);
 
-    ~SimpleKnob() override = default;
-
-    /** You can override paint if you want to custom-draw a background, etc. */
-    void paint(juce::Graphics& /*g*/) override {}
-
-    /**
-     * Resized is called whenever the component’s size changes.
-     * We’ll handle the layout of our label and slider here.
-     */
-    void resized() override;
-
-private:
-    juce::Label  knobLabel;
-    juce::Slider knobSlider;
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SimpleKnob)
+        label.setJustificationType(juce::Justification::centred);
+        slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+    }
 };

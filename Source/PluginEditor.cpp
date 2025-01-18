@@ -5,7 +5,7 @@
 using namespace juce;
 
 SimpleSubAudioProcessorEditor::SimpleSubAudioProcessorEditor(SimpleSubAudioProcessor& p)
-    : AudioProcessorEditor(&p), audioProcessor(p)
+    : AudioProcessorEditor(&p), audioProcessor(p), controlPanel(p)
 {
     setResizable(true, true);
     addAndMakeVisible(controlPanel);
